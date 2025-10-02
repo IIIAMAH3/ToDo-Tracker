@@ -1,0 +1,17 @@
+form label {
+    font-size: 16px;
+    font-weight: normal;
+    color: black;
+}
+
+form input::placeholder {
+    font-style: italic;
+    font-size: 14px;
+}
+
+.helptext {
+    font-size: 13px;
+    font-weight: bold;
+    color: gray;
+    margin-top: 3px;
+}
