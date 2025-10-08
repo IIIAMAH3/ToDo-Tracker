@@ -51,4 +51,3 @@ class CustomUserCreationForm(UserCreationForm):
         }
         for field, text in help_texts.items():
             self.fields[field].help_text = text
-
