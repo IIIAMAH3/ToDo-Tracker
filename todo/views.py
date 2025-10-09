@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import  User
 from django.contrib.auth import login, logout, authenticate
-from .forms import TodoForm, CustomUserCreationForm
+from .forms import TodoForm, CustomUserCreationForm, CustomAuthenticationForm
 from .models import ToDo
 from django.contrib.auth.decorators import login_required
 
@@ -28,12 +28,12 @@ def signupuser(request):
 
 def loginuser(request):
     if request.method == "GET":
-        return render(request, 'todo/loginuser.html', {"form": AuthenticationForm()})
+        return render(request, 'todo/loginuser.html', {"form": CustomAuthenticationForm()})
     else:
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
         if user is None:
             return render(request, 'todo/loginuser.html',
-                          {'form': AuthenticationForm(), 'error':'Username and password did not match'})
+                          {'form': CustomAuthenticationForm(), 'error':'Username and password did not match'})
         else:
             login(request, user)
             return redirect('currenttodos')

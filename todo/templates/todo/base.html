@@ -9,40 +9,123 @@
     <title>{% block title %}ToDo Tracker{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'todo/css/style.css' %}">
     <style>
-        /* Светлая тема (по умолчанию) */
         body {
             background-color: #ffffff;
             color: #000000;
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Тёмная тема */
+        /* ====== Dark theme ====== */
         body.dark-theme {
-            background-color: #121212;
+            background-color: #191d23;
             color: #ffffff;
         }
 
-        /* Дополнительно стилизуем карточки */
+        /* ====== Card styling ====== */
         .card {
             background-color: #f8f9fa;
+            color: #000000;
+            border-radius: 12px;
+            transition: background-color 0.3s, color 0.3s;
+            border: 1px solid #e9ecef; /* Light border for light mode */
         }
 
         .dark-theme .card {
-            background-color: #333;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border: 1px solid #374151; /* Subtle border for dark mode */
+            box-shadow: none !important; /* Remove shadow in dark mode */
         }
 
-        /* Темная тема для navbar */
-        .navbar.dark-theme {
-            background-color: #333 !important;
+        /* ====== Text inside cards ====== */
+        .card h1,
+        .card h2,
+        .card h3,
+        .card h4,
+        .card h5,
+        .card h6,
+        .card p,
+        .card a {
+            transition: color 0.3s;
         }
 
-        .navbar.dark-theme .nav-link,
-        .navbar.dark-theme .navbar-brand {
-            color: #ffffff !important;
+        .dark-theme .card h1,
+        .dark-theme .card h2,
+        .dark-theme .card h3,
+        .dark-theme .card h4,
+        .dark-theme .card h5,
+        .dark-theme .card h6,
+        .dark-theme .card p,
+        .dark-theme .card a {
+            color: #ffffff;
         }
 
-        .theme-switcher {
-            margin-left: 20px;
+        /* ====== Form inputs ====== */
+        .card input,
+        .card select,
+        .card textarea {
+            background-color: #ffffff;
+            color: #000000;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            transition: background-color 0.3s, color 0.3s, border 0.3s;
+        }
+
+        .dark-theme .card input,
+        .dark-theme .card select,
+        .dark-theme .card textarea {
+            background-color: #2c2c2c;
+            color: #ffffff;
+            border: 1px solid #555555;
+        }
+
+        .card input::placeholder,
+        .card textarea::placeholder {
+            color: #999999;
+        }
+
+        .dark-theme .card input::placeholder,
+        .dark-theme .card textarea::placeholder {
+            color: #bbbbbb;
+        }
+
+        .card label {
+            color: #333333; /* dark text for light mode */
+            font-weight: 600;
+        }
+
+        /* For dark mode */
+        .dark-theme .card label {
+            color: #ffffff; /* white text for dark mode */
+        }
+
+        /* ====== Buttons ====== */
+        .btn-primary {
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .dark-theme .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        /* ====== Link under button ====== */
+        .register-link {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+
+        .dark-theme .register-link {
+            color: #4da3ff;
+        }
+
+        /* ====== Form layout ====== */
+        form p {
+            margin-bottom: 1rem;
         }
     </style>
     <link rel="icon" type="image/png" href="{% static 'todo/logo.png' %}">
@@ -50,7 +133,7 @@
 
 <body>
 <nav id="topNav" class="navbar navbar-expand-md navbar-light" style="background: linear-gradient(135deg, #ff7bd8 0%, #3fa9ff 100%);">
-    <div class="container-fluid mt-2">
+    <div class="container-fluid">
         <!-- Лого слева -->
         <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
             <img src="{% static "todo/logo.png" %}" width="35" height="35"

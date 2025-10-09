@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
@@ -36,8 +36,8 @@ class CustomUserCreationForm(UserCreationForm):
         self.fields["username"].widget.attrs.update({
 
             "placeholder": "Enter a username",
-            "maxlength": 50,
         })
+
         self.fields["password1"].widget.attrs.update({
             "placeholder": "Enter password",
         })
@@ -51,3 +51,25 @@ class CustomUserCreationForm(UserCreationForm):
         }
         for field, text in help_texts.items():
             self.fields[field].help_text = text
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={
+            "class": "form-control",
+            "placeholder": "Enter a username",
+        }),
+        label="Username",
+        label_suffix="",
+    )
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            "class": "form-control",
+            "placeholder": "Enter password",
+        }),
+        label="Password",
+        label_suffix="",
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
