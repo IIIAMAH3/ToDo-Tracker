@@ -1,13 +1,52 @@
-{% extends 'todo/base.html' %}
+{#{% extends 'todo/base.html' %}#}
+{##}
+{#{% block content %}#}
+{##}
+{#<div class="container mt-5" style="max-width: 500px">#}
+{#        <h1 class="text-center mb-4">Log in</h1>#}
+{##}
+{#        {% if error %}#}
+{#            <div class="alert alert-danger">{{ error }}</div>#}
+{#        {% endif %}#}
+{##}
+{#        <form method="POST" class="p-4 border rounded bg-light shadow-sm">#}
+{#            {% csrf_token %}#}
+{#            {{ form.as_p }}#}
+{##}
+{#             <div class="d-flex align-items-center">#}
+{#                <button type="submit" class="btn btn-primary rounded-pill me-3">Log In</button>#}
+{#                <p class="mb-0 ml-1">#}
+{#                Do not have an account? <a href="{% url 'signupuser' %}">Register</a>#}
+{#                </p>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
+{#{% endblock %}#}
 
+{% extends "todo/base.html" %}
 {% block content %}
 
-<h1>Log in</h1>
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow small p-4" style="width: 100%; max-width: 400px;">
+        <h2 class="text-center mb-4">Log in</h2>
 
-<h2>{{ error }}</h2>
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Log in</button>
-</form>
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="d-flex align-items-center justify-content-between mt-3">
+                <button type="submit" class="btn btn-primary rounded-pill px-4">Log In</button>
+                <p class="mb-0">
+                    Do not have an account?
+                    <a href="{% url 'signupuser' %}" class="register-link">Register</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
 {% endblock %}
