@@ -55,8 +55,7 @@
         .dark-theme .card h4,
         .dark-theme .card h5,
         .dark-theme .card h6,
-        .dark-theme .card p,
-        .dark-theme .card a {
+        .dark-theme .card p {
             color: #ffffff;
         }
 
@@ -119,7 +118,7 @@
             text-decoration: underline;
         }
 
-        .dark-theme .register-link {
+        .dark-theme  .register-link {
             color: #4da3ff;
         }
 
@@ -163,7 +162,7 @@
                 <!-- Правая часть: logout + смена темы -->
                 <ul class="navbar-nav">
                     <li class="nav-item d-flex align-items-center mr-3">
-                        <span style="font-size: 18px">{{ user.username }}</span>
+                        <span style="font-size: 18px; font-weight: bolder" >{{ user.username }}</span>
                     </li>
                     <li class="nav-item">
                         <form action="{% url 'logoutuser' %}" method="POST" class="d-inline">

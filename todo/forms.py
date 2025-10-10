@@ -33,10 +33,16 @@ class CustomUserCreationForm(UserCreationForm):
         for field in self.fields.values():
             field.widget.attrs.update({"class": "form-control",})
 
-        self.fields["username"].widget.attrs.update({
-
-            "placeholder": "Enter a username",
-        })
+        self.fields["username"] = forms.CharField(
+            max_length=20,
+            error_messages={
+                "max_length": "Username must be 30 characters or lower"
+            },
+            widget=forms.TextInput(attrs={
+                "class": "form-control signup-input",
+                "placeholder": "Enter a username",
+            })
+        )
 
         self.fields["password1"].widget.attrs.update({
             "placeholder": "Enter password",
