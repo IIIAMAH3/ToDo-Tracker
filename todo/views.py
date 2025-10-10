@@ -30,10 +30,19 @@ def loginuser(request):
     if request.method == "GET":
         return render(request, 'todo/loginuser.html', {"form": CustomAuthenticationForm()})
     else:
-        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        username = request.POST["username"]
+        password = request.POST["password"]
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return render(request, "todo/loginuser.html",
+                          {"form": CustomAuthenticationForm(), "error":"User does not exist"})
+        else:
+            user = authenticate(request, username=username, password=password)
+
         if user is None:
             return render(request, 'todo/loginuser.html',
-                          {'form': CustomAuthenticationForm(), 'error':'Username and password did not match'})
+                          {'form': CustomAuthenticationForm(), 'error':'Username and password didn\'t match'})
         else:
             login(request, user)
             return redirect('currenttodos')
