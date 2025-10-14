@@ -1,8 +1,13 @@
 {% extends "todo/base.html" %}
+{% load static %}
 {% block content %}
 
 <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
+        <div class="d-block mx-auto mb-2">
+            <img src="{% static 'todo/logo.png' %}" alt="Logo" width="50" height="50" >
+        </div>
+
         <h2 class="text-center mb-4">Sign up</h2>
 
         {% if error %}
