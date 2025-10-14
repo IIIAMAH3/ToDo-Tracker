@@ -39,7 +39,7 @@ class CustomUserCreationForm(UserCreationForm):
                 "max_length": "Username must be 30 characters or lower"
             },
             widget=forms.TextInput(attrs={
-                "class": "form-control signup-input",
+                "class": "form-control",
                 "placeholder": "Enter a username",
             })
         )
