@@ -14,8 +14,3 @@ form input::placeholder {
     color: gray;
     margin-top: 3px;
 }
-
-.signup-input {
-    width: 300px; !important;
-    max-width: 100%;
-}
