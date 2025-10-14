@@ -6,10 +6,11 @@ from .models import ToDo
 
 class TodoForm(ModelForm):
     class Meta:
-        model =  ToDo
+        model = ToDo
         fields = ['title', 'description', 'important', 'deadline_datetime']
         widgets = {'deadline_datetime': forms.DateTimeInput(
-            attrs={'type': 'datetime-local'},format='%Y-%m-%dT%H:%M'
+            attrs={'type': 'datetime-local'},
+            format='%Y-%m-%dT%H:%M'
         )}
 
 
@@ -31,7 +32,7 @@ class CustomUserCreationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.label_suffix = ""
         for field in self.fields.values():
-            field.widget.attrs.update({"class": "form-control",})
+            field.widget.attrs.update({"class": "form-control", })
 
         self.fields["username"] = forms.CharField(
             max_length=20,
@@ -39,7 +40,7 @@ class CustomUserCreationForm(UserCreationForm):
                 "max_length": "Username must be 30 characters or lower"
             },
             widget=forms.TextInput(attrs={
-                "class": "form-control signup-input",
+                "class": "form-control",
                 "placeholder": "Enter a username",
             })
         )
@@ -62,7 +63,6 @@ class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(
         widget=forms.TextInput(attrs={
             "class": "form-control",
-            "placeholder": "Enter a username",
         }),
         label="Username",
         label_suffix="",
@@ -71,7 +71,6 @@ class CustomAuthenticationForm(AuthenticationForm):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
             "class": "form-control",
-            "placeholder": "Enter password",
         }),
         label="Password",
         label_suffix="",

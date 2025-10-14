@@ -11,11 +11,6 @@ form input::placeholder {
 .helptext {
     font-size: 13px;
     font-weight: bold;
-    color: gray;
+    color: rgb(128, 128, 128);
     margin-top: 3px;
-}
-
-.signup-input {
-    width: 300px; !important;
-    max-width: 100%;
 }
