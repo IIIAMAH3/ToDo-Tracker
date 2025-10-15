@@ -1,8 +1,12 @@
 {% extends "todo/base.html" %}
+{% load static %}
 {% block content %}
 
 <div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow small p-4" style="width: 100%; max-width: 400px;">
+    <div class="card shadow small p-4 mt-1" style="width: 100%; max-width: 400px; top: -50px">
+        <div class="d-block mx-auto mb-2">
+            <img src="{% static 'todo/logo.png' %}" alt="Logo" width="50" height="50" >
+        </div>
         <h2 class="text-center mb-4">Log in</h2>
 
         {% if error %}
@@ -15,7 +19,7 @@
 
             <div class="d-flex align-items-center justify-content-between mt-3">
                 <button type="submit" class="btn btn-primary rounded-pill px-4">Log In</button>
-                <p class="mb-0" style="font-size: medium">
+                <p class="mb-0 mx-auto" style="font-size: medium">
                     Do not have an account?
                     <a href="{% url 'signupuser' %}" class="register-link">Register</a>
                 </p>
