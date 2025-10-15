@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import ToDo
 
+
 class TodoForm(ModelForm):
     class Meta:
         model = ToDo
@@ -58,6 +59,7 @@ class CustomUserCreationForm(UserCreationForm):
         }
         for field, text in help_texts.items():
             self.fields[field].help_text = text
+
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(
