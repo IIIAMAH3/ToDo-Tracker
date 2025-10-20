@@ -11,8 +11,19 @@ class TodoForm(ModelForm):
         fields = ['title', 'description', 'important', 'deadline_datetime']
         widgets = {'deadline_datetime': forms.DateTimeInput(
             attrs={'type': 'datetime-local'},
-            format='%Y-%m-%dT%H:%M'
-        )}
+            format='%Y-%m-%dT%H:%M'),
+            "title": forms.TextInput(attrs={
+                "class": "form-control",
+                "id": "floatingInput",
+                "placeholder": "Task title",
+            }),
+            "description": forms.Textarea(attrs={
+                "class": "form-control",
+                "id": "floatingTextarea",
+                "placeholder": "Description"
+            })
+
+        }
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -80,3 +91,4 @@ class CustomAuthenticationForm(AuthenticationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
