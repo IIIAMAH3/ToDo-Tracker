@@ -6,24 +6,33 @@ from .models import ToDo
 
 
 class TodoForm(ModelForm):
+
     class Meta:
         model = ToDo
-        fields = ['title', 'description', 'important', 'deadline_datetime']
-        widgets = {'deadline_datetime': forms.DateTimeInput(
-            attrs={'type': 'datetime-local'},
-            format='%Y-%m-%dT%H:%M'),
-            "title": forms.TextInput(attrs={
-                "class": "form-control",
-                "id": "floatingInput",
-                "placeholder": "Task title",
-            }),
-            "description": forms.Textarea(attrs={
-                "class": "form-control",
-                "id": "floatingTextarea",
-                "placeholder": "Description"
-            })
+        fields = ['title', 'description', 'deadline_datetime', 'important']
 
-        }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['title'].widget.attrs.update({
+            'class': 'custom-input',
+            'placeholder': 'What needs to be done?'
+        })
+
+        self.fields['description'].widget.attrs.update({
+            'class': 'custom-textarea',
+            'placeholder': 'Add more details about this task...',
+            'rows': 4
+        })
+
+        self.fields['deadline_datetime'].widget.attrs.update({
+            'class': 'custom-date',
+            'type': 'date'
+        })
+
+        self.fields['important'].widget.attrs.update({
+            'class': 'custom-checkbox'
+        })
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -31,7 +40,7 @@ class CustomUserCreationForm(UserCreationForm):
         required=True,
         widget=forms.EmailInput(attrs={
             "class": "form-control",
-            "placeholder": "Enter your email"
+            "placeholder": "your@email.com"
         }),
         label_suffix="",
     )
