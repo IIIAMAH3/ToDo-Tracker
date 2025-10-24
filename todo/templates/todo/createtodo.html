@@ -1,15 +1,125 @@
 {% extends 'todo/base.html' %}
+{% load static %}
+
+{% block title %}Create New Task - ToDo Tracker{% endblock %}
+
+{% block extra_css %}
+<!-- Load your custom form CSS -->
+<link rel="stylesheet" href="{% static 'todo/css/todo-form.css' %}">
+{% endblock %}
 
 {% block content %}
+<div class="form-page-wrapper" style="max-height: 100%">
+    <div class="form-container">
+        <div class="form-header">
+            <h1 class="form-title">Create New Task</h1>
+            <p class="form-subtitle">Add a new task to your todo list</p>
+        </div>
 
-<h1>Create</h1>
+        <!-- Display general form errors -->
+        {% if error %}
+        <div class="error-message" style="background: #fed7d7; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+            {{ error }}
+        </div>
+        {% endif %}
 
-<h2>{{ error }}</h2>
-<form method="POST">
-    {% csrf_token %}
-    <div class="d-flex">
-        {{ form.as_p }}
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- Manual rendering with custom classes -->
+            <div class="form-group">
+                <label class="form-label" for="id_title">Task Title *</label>
+                <input type="text"
+                       name="title"
+                       id="id_title"
+                       class="custom-input"
+                       placeholder="What needs to be done?"
+                       maxlength="100"
+                       required>
+                {% if form.title.errors %}
+                    <div class="error-message">{{ form.title.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="id_description">Description</label>
+                <textarea name="description"
+                          id="id_description"
+                          class="custom-textarea"
+                          placeholder="Add more details about this task..."
+                          rows="4"></textarea>
+                {% if form.description.errors %}
+                    <div class="error-message">{{ form.description.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="id_deadline_datetime">Due Date</label>
+                <input type="date"
+                       name="deadline_datetime"
+                       id="id_deadline_datetime"
+                       class="custom-date">
+                {% if form.deadline_datetime.errors %}
+                    <div class="error-message">{{ form.deadline_datetime.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox"
+                       name="important"
+                       id="id_important"
+                       class="custom-checkbox"
+                       {% if form.important.value %}checked{% endif %}>
+                <span class="checkmark"></span>
+                <span class="checkbox-text" style="padding-left: 35px">Mark as important</span>
+                </label>
+
+                {% if form.important.errors %}
+                    <div class="error-message">{{ form.important.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" style="background-color: rgba(17,5,166,0.3)" onclick="window.history.back()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Create Task</button>
+            </div>
+        </form>
+
+        <div class="form-footer">
+            <p>Fill in the required fields marked with *</p>
+        </div>
     </div>
-    <button type="submit">Create</button>
-</form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add today's date as default for due date
+        const today = new Date().toISOString().split('T')[0];
+        const dueDateField = document.getElementById('id_deadline_datetime');
+        if (dueDateField && !dueDateField.value) {
+            dueDateField.value = today;
+        }
+
+        // Add focus effects
+        const inputs = document.querySelectorAll('.custom-input, .custom-textarea, .custom-select, .custom-date');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused');
+            });
+        });
+
+        // Check current theme and apply if needed
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
+    });
+</script>
 {% endblock %}
