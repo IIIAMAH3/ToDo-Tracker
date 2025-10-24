@@ -64,10 +64,13 @@ def createtodo(request):
     else:
         try:
             form = TodoForm(request.POST)
-            newtodo = form.save(commit=False)
-            newtodo.user = request.user
-            newtodo.save()
-            return redirect('currenttodos')
+            if form.is_valid():
+                newtodo = form.save(commit=False)
+                newtodo.user = request.user
+                newtodo.save()
+                return redirect('currenttodos')
+            else:
+                return render(request, "todo/createtodo.html", {"form": form})
         except ValueError:
             return render(request, 'todo/createtodo.html', {'form': TodoForm(), 'error': 'Bad data passed in.'})
 
@@ -80,7 +83,7 @@ def currenttodos(request):
 
 @login_required
 def completedtodos(request):
-    todos = ToDo.objects.filter(user=request.user, done=True).order_by('deadline_datetime')
+    todos = ToDo.objects.filter(user=request.user, done=True).order_by('-deadline_datetime')
     return render(request, 'todo/completedtodos.html', {'todos': todos})
 
 
