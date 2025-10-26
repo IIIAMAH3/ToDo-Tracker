@@ -1,21 +1,62 @@
 {% extends 'todo/base.html' %}
+{% load static %}
+
+{% block title %}Current Tasks - ToDoTracker{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'todo/css/todo-cards.css' %}">
+{% endblock %}
 
 {% block content %}
-    <ul>
-        {% for todo in todos%}
-            <li>
-                <a href="{% url 'viewtodo' todo.id %}">
-                    {% if todo.important %}
-                        <b>{{ todo.title }}</b>
-                    {% else %}
-                        {{ todo.title }}
-                    {% endif %}
+    <div class="todos-page-wrapper">
+        <div class="todos-container">
+            <div class="todos-header">
+                <h1 class="todos-title"> Current Tasks</h1>
+                <p class="todos-subtitle">Your active tasks and priorities</p>
+            </div>
 
-                    {% if todo.description %}
-                        - {{ todo.description }}
-                    {% endif %}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+            {% if todos %}
+                <div class="todos-list">
+                    {% for todo in todos %}
+                        <div class="todo-card {% if todo.important %}important{% endif %}" style="animation-delay: {{ forloop.counter0|add:0.1 }}s">
+                            <div class="todo-header">
+                                <h3 class="todo-title"><a href="{% url 'viewtodo' todo.id %}" class="gradient-link">{{ todo.title }}</a></h3>
+                            </div>
+                            {% if todo.description %}
+                                <p class="todo-description">{{ todo.description }}</p>
+                            {% endif %}
+
+                            <div class="todo-meta">
+                                <div class="todo-tags">
+                                    {% if todo.important %}
+                                        <span class="important-badge">
+                                            ⭐ Important
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{#    <ul>#}
+{#        {% for todo in todos%}#}
+{#            <li>#}
+{#                <a href="{% url 'viewtodo' todo.id %}">#}
+{#                    {% if todo.important %}#}
+{#                        <b>{{ todo.title }}</b>#}
+{#                    {% else %}#}
+{#                        {{ todo.title }}#}
+{#                    {% endif %}#}
+{##}
+{#                    {% if todo.description %}#}
+{#                        - {{ todo.description }}#}
+{#                    {% endif %}#}
+{#                </a>#}
+{#            </li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
 {% endblock %}
