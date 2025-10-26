@@ -1,5 +1,6 @@
 .todos-page-wrapper {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
 }
 
 .dark-theme .todos-page-wrapper {
@@ -19,7 +20,7 @@
 .todos-title {
     font-size: 2.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #5e07f4 0%, #a6239f 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 10px;
@@ -32,7 +33,7 @@
 }
 
 .todos-subtitle {
-    color: #6c757d;
+    color: #29292b;
     font-size: 1.1rem;
 }
 
@@ -241,12 +242,13 @@
 .empty-state-title {
     font-size: 1.5rem;
     margin-bottom: 10px;
-    color: #6c757d;
+    color: #151515;
 }
 
 .empty-state-text {
     font-size: 1rem;
     margin-bottom: 30px;
+    color: #29292b;
 }
 
 .dark-theme .empty-state,

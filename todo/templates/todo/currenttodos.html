@@ -36,27 +36,26 @@
                                 </div>
                             </div>
 
+                        <div class="todo-date">
+                            <span class="date-icon">📅</span>
+                            {% if todo.deadline_datetime %}
+                                Due: {{ todo.deadline_datetime|date:"M d, Y" }}
+                            {% else %}
+                                No deadline
+                            {% endif %}
+                        </div>
+
                         </div>
                     {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-state-icon">📝</div>
+                    <h3 class="empty-state-title">No current tasks</h3>
+                    <p class="empty-state-text">You're all caught up! Create a new task to get started</p>
+                    <a href="{% url 'createtodo' %}" class="btn btn-primary rounded-pill">Create New Task</a>
                 </div>
             {% endif %}
         </div>
     </div>
-{#    <ul>#}
-{#        {% for todo in todos%}#}
-{#            <li>#}
-{#                <a href="{% url 'viewtodo' todo.id %}">#}
-{#                    {% if todo.important %}#}
-{#                        <b>{{ todo.title }}</b>#}
-{#                    {% else %}#}
-{#                        {{ todo.title }}#}
-{#                    {% endif %}#}
-{##}
-{#                    {% if todo.description %}#}
-{#                        - {{ todo.description }}#}
-{#                    {% endif %}#}
-{#                </a>#}
-{#            </li>#}
-{#        {% endfor %}#}
-{#    </ul>#}
 {% endblock %}
