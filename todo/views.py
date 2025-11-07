@@ -5,6 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import TodoForm, CustomUserCreationForm, CustomAuthenticationForm
 from .models import ToDo
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def home(request):
@@ -77,13 +78,35 @@ def createtodo(request):
 
 @login_required
 def currenttodos(request):
-    todos = ToDo.objects.filter(user=request.user, done=False).order_by('deadline_datetime')
+    todos = ToDo.objects.filter(user=request.user, done=False).order_by('-deadline_datetime')
+
+    paginator = Paginator(todos, 4)
+    page = request.GET.get("page", 1)
+
+    try:
+        todos = paginator.page(page)
+    except PageNotAnInteger:
+        todos = paginator.page(1)
+    except EmptyPage:
+        todos = paginator.page(paginator.num_pages)
+
     return render(request, 'todo/currenttodos.html', {'todos': todos})
 
 
 @login_required
 def completedtodos(request):
     todos = ToDo.objects.filter(user=request.user, done=True).order_by('-deadline_datetime')
+
+    paginator = Paginator(todos, 4)
+    page = request.GET.get("page", 1)
+
+    try:
+        todos = paginator.page(page)
+    except PageNotAnInteger:
+        todos = paginator.page(1)
+    except EmptyPage:
+        todos = paginator.page(paginator.num_pages)
+        
     return render(request, 'todo/completedtodos.html', {'todos': todos})
 
 
