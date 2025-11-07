@@ -27,8 +27,10 @@ class TodoForm(ModelForm):
 
         self.fields['deadline_datetime'].widget.attrs.update({
             'class': 'custom-date',
-            'type': 'date'
-        })
+            'type': 'datetime-local'},
+            input_formats =["%Y-%m-%dT%H:%M"],
+            required=False,
+        )
 
         self.fields['important'].widget.attrs.update({
             'class': 'custom-checkbox'
