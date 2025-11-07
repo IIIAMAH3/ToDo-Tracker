@@ -1,4 +1,4 @@
-{% extends 'todo/base.html' %}
+c{% extends 'todo/base.html' %}
 {% load static %}
 
 {% block title %}Create New Task - ToDo Tracker{% endblock %}
@@ -55,7 +55,7 @@
 
             <div class="form-group">
                 <label class="form-label" for="id_deadline_datetime">Due Date</label>
-                <input type="date"
+                <input type="datetime-local"
                        name="deadline_datetime"
                        id="id_deadline_datetime"
                        class="custom-date">
