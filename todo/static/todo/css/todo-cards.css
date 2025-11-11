@@ -1,5 +1,5 @@
 .todos-page-wrapper {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ff7bd8 0%, #3fa9ff 100%);
     min-height: 100vh;
 }
 
@@ -48,6 +48,22 @@
     margin-bottom: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     border-left: 5px solid #667eea;
+}
+
+.todos-list .todo-card {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.8s cubic-bezier(.25,.8,.25,1) forwards;
+  /* delay derived from --i (0,1,2...) multiplied by 80ms */
+  animation-delay: calc(var(--i, 0) * 150ms);
+}
+
+/* re-use or add keyframes (same as your form slideUp) */
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dark-theme .todo-card {
@@ -273,5 +289,109 @@
     }
 }
 
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pagination-item {
+    display: inline-block;
+}
+
+.pagination-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.pagination-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.pagination-link.current {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.pagination-link.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.pagination-link.disabled:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: none;
+    box-shadow: none;
+}
+
+.pagination-ellipsis {
+    color: white;
+    padding: 0 10px;
+    font-weight: 600;
+}
+
+/* Dark theme adjustments */
+.dark-theme .pagination-link {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .pagination-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Page info */
+.page-info {
+    text-align: center;
+    background: linear-gradient(135deg, #5e07f4 0%, #a6239f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    opacity: 0.8;
+    font-weight: bold;
+}
+
+.dark-theme .page-info {
+    background: linear-gradient(135deg, #8ba1f8 0%, #b76fd6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Responsive pagination */
+@media (max-width: 768px) {
+    .pagination {
+        gap: 5px;
+    }
+
+    .pagination-link {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+
+    .pagination-ellipsis {
+        padding: 0 5px;
+    }
+}
 
 
