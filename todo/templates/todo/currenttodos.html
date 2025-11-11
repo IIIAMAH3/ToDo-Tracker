@@ -5,7 +5,6 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'todo/css/todo-cards.css' %}">
-    <link rel="stylesheet" href="{% static 'todo/css/todo-form.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -19,7 +18,7 @@
             {% if todos %}
                 <div class="todos-list">
                     {% for todo in todos %}
-                        <div class="todo-card {% if todo.important %}important{% endif %}">
+                        <div class="todo-card {% if todo.important %}important{% endif %}" style="--i:{{ forloop.counter0 }};">
                             <div class="todo-header">
                                 <h3 class="todo-title"><a href="{% url 'viewtodo' todo.id %}" class="gradient-link">{{ todo.title }}</a></h3>
                             </div>
