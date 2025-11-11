@@ -1,22 +1,98 @@
 {% extends 'todo/base.html' %}
-{% block content %}
-    Completed
-    <ul>
-        {% for todo in todos %}
-            <li>
-                <a href="{% url 'viewtodo' todo.id %}">
-                    {% if todo.important %}
-                        <b>{{ todo.title }}</b>
-                    {% else %}
-                        {{ todo.title }}
-                    {% endif %}
+{% load static %}
+{% block title %}Completed Tasks - ToDo Tracker{% endblock %}
 
-                    {% if todo.description %}
-                        - {{ todo.description }}
-                    {% endif %}
-                    {{ todo.deadline_datetime|date:'j M Y H:i' }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'todo/css/todo-cards.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="todos-page-wrapper">
+        <div class="todos-container">
+            <div class="todos-header">
+                <h1 class="todos-title"> Completed Tasks</h1>
+                <p class="todos-subtitle">Your accomplished assignments</p>
+            </div>
+
+            {% if todos %}
+                <div class="todos-list">
+                    {% for todo in todos %}
+                        <div class="todo-card completed {% if todo.important %}important{% endif %}" style="--i:{{ forloop.counter0 }};">
+                            <div class="todo-header">
+                                <h3 class="todo-title"><a href="{% url 'viewtodo' todo.id %}" class="gradient-link">{{ todo.title }}</a></h3>
+                            </div>
+                            {% if todo.description %}
+                                <p class="todo-description">{{ todo.description }}</p>
+                            {% endif %}
+
+                            <div class="todo-meta" style="margin-bottom: 10px">
+                                <div class="todo-tags">
+                                    {% if todo.important %}
+                                        <span class="important-badge">
+                                            ⭐ Important
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <span class="date-icon todo-header todo-description"><b>✅ Completed</b></span>
+
+                            <div class="todo-date">
+                                {% if todo.deadline_datetime %}
+                                    <b>The deadline was:</b> {{ todo.deadline_datetime|date:"H:i, M d Y" }}
+                                {% else %}
+                                    <p class="todo-description" style="font-weight: bold">No deadline</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if todos.has_other_pages %}
+                    <div style="bottom: 0;">
+                        <div class="pagination-container mt-5">
+                        <div class="page-info">
+                            Showing {{ todos.start_index }}-{{ todos.end_index }} of {{ todos.paginator.count }} tasks
+                        </div>
+
+                        <div class="pagination">
+                            {% if todos.has_previous %}
+                                <a href="?page=1" class="pagination-link" title="First page">&laquo;</a>
+                                <a href="?page={{ todos.previous_page_number }}" class="pagination-link" title="Previous page">&lsaquo;</a>
+                            {% else %}
+                                <span class="pagination-link disabled">&laquo;</span>
+                                <span class="pagination-link disabled">&lsaquo;</span>
+                            {% endif %}
+                            {% for i in todos.paginator.page_range %}
+                                {% if todos.number == i %}
+                                    <span class="pagination-link current">{{ i }}</span>
+                                {% elif i >= todos.number|add:"-1" and i <= todos.number|add:"1"%}
+                                    <a href="?page={{ i }}" class="pagination-link">{{ i }}</a>
+                                {% elif i == 1 or i == todos.paginator.num_pages %}
+                                    <a href="?page={{ i }}" class="pagination-link">{{ i }}</a>
+                                {% elif i == todos.number|add:"-2" or i == todos.number|add:"2" %}
+                                    <span class="pagination-ellipsis">...</span>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if todos.has_next %}
+                                <a href="?page={{ todos.next_page_number }}" class="pagination-link" title="{{ todos.number|add:"1" }}">&rsaquo;</a>
+                                <a href="?page={{ todos.paginator.num_pages }}" class="pagination-link" title="Last page">&raquo;</a>
+                            {% else %}
+                                <span class="pagination-link disabled">&rsaquo;</span>
+                                <span class="pagination-link disabled">&raquo;</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-state-icon">📝</div>
+                    <h3 class="empty-state-title">No completed tasks yet</h3>
+                    <p class="empty-state-text">Complete some tasks to see them here!</p>
+                    <a href="{% url 'currenttodos' %}" class="btn btn-primary rounded-pill">View Current Tasks</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
