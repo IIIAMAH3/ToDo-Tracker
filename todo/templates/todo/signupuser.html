@@ -1,8 +1,13 @@
 {% extends "todo/base.html" %}
 {% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'todo/css/todo-form.css' %}">
+{% endblock %}
+
 {% block content %}
 
-<div class="d-flex justify-content-center align-items-center vh-100">
+<div class="d-flex justify-content-center align-items-center vh-100 form-page-wrapper">
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
         <div class="d-block mx-auto mb-2">
             <img src="{% static 'todo/logo.png' %}" alt="Logo" width="50" height="50" >
@@ -20,7 +25,7 @@
 
             <div class="d-flex align-items-center justify-content-between mt-3">
                 <button type="submit" class="btn btn-primary rounded-pill px-4">Sign up</button>
-                <p class="mb-0">
+                <p class="mb-0 ml-1">
                     Already have an account?
                     <a href="{% url 'loginuser' %}" class="register-link">Log in</a>
                 </p>
