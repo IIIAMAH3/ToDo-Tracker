@@ -1,20 +1,57 @@
 {% extends 'todo/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'todo/css/todo-form.css' %}">
+{% endblock %}
+
 {% block content %}
+<div class="form-page-wrapper" style="max-width: 100%">
+    <div class="form-container">
+        <h1 class="form-title">{{ todo_task.title }}</h1>
 
-    {{ todo_task.title }}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
+        {% if error %}
+            <div class="error-message" style="background: #fed7d7; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+                {{ error }}
+            </div>
+        {% endif %}
 
-    <form method="POST" action="{% url 'completetodo' todo_task.id %}">
-        {% csrf_token %}
-        <button type="submit">Completed</button>
-    </form>
+        <form method="POST">
+            {% csrf_token %}
 
-    <form method="POST" action="{% url 'deletetodo' todo_task.id %}">
-        {% csrf_token %}
-        <button type="submit">Delete</button>
-    </form>
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Task Title *</label>
+                {{ form.title }}
+                {{ form.title.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.deadline_datetime.id_for_label }}">Due Date</label>
+                {{ form.deadline_datetime }}
+                {{ form.deadline_datetime.errors }}
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-wrapper">
+                    {{ form.important }}
+                    <span class="checkmark"></span>
+                    <span style="padding-left: 30px">Mark as important</span>
+                </label>
+                {{ form.important.errors }}
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" formaction="{% url 'completetodo' todo_task.id %}" class="btn btn-complete">Completed</button>
+                <button type="submit" formaction="{% url 'deletetodo' todo_task.id %}" class="btn btn-delete">Delete</button>
+            </div>
+        </form>
+
+    </div>
+</div>
 {% endblock %}
