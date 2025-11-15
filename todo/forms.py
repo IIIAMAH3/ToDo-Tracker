@@ -10,31 +10,21 @@ class TodoForm(ModelForm):
     class Meta:
         model = ToDo
         fields = ['title', 'description', 'deadline_datetime', 'important']
+        widgets = {
+            'deadline_datetime': forms.DateTimeInput(
+                attrs={'type': 'datetime-local', 'class': 'custom-date'},
+                format="%Y-%m-%dT%H:%M",
+            ),
+            'important': forms.CheckboxInput(attrs={'class': 'custom-checkbox'}),
+            'title': forms.TextInput(attrs={'class': 'custom-input', 'placeholder': 'What needs to be done?', 'maxlength':100}),
+            'description': forms.Textarea(attrs={'class': 'custom-textarea', 'placeholder': 'Add more details about this task...', 'rows': 4}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields['title'].widget.attrs.update({
-            'class': 'custom-input',
-            'placeholder': 'What needs to be done?'
-        })
-
-        self.fields['description'].widget.attrs.update({
-            'class': 'custom-textarea',
-            'placeholder': 'Add more details about this task...',
-            'rows': 4
-        })
-
-        self.fields['deadline_datetime'].widget.attrs.update({
-            'class': 'custom-date',
-            'type': 'datetime-local'},
-            input_formats =["%Y-%m-%dT%H:%M"],
-            required=False,
-        )
-
-        self.fields['important'].widget.attrs.update({
-            'class': 'custom-checkbox'
-        })
+        self.label_suffix = ""
+        self.fields['deadline_datetime'].input_formats = ["%Y-%m-%dT%H:%M"]
 
 
 class CustomUserCreationForm(UserCreationForm):
