@@ -4,93 +4,68 @@
 {% block title %}Create New Task - ToDo Tracker{% endblock %}
 
 {% block extra_css %}
-<!-- Load your custom form CSS -->
-<link rel="stylesheet" href="{% static 'todo/css/todo-form.css' %}">
+    <link rel="stylesheet" href="{% static 'todo/css/todo-form.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="form-page-wrapper" style="max-height: 100%">
-    <div class="form-container">
-        <div class="form-header">
-            <h1 class="form-title">Create New Task</h1>
-            <p class="form-subtitle">Add a new task to your todo list</p>
-        </div>
-
-        <!-- Display general form errors -->
-        {% if error %}
-        <div class="error-message" style="background: #fed7d7; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
-            {{ error }}
-        </div>
-        {% endif %}
-
-        <form method="POST">
-            {% csrf_token %}
-
-            <!-- Manual rendering with custom classes -->
-            <div class="form-group">
-                <label class="form-label" for="id_title">Task Title *</label>
-                <input type="text"
-                       name="title"
-                       id="id_title"
-                       class="custom-input"
-                       placeholder="What needs to be done?"
-                       maxlength="100"
-                       required>
-                {% if form.title.errors %}
-                    <div class="error-message">{{ form.title.errors }}</div>
-                {% endif %}
+    <div class="form-page-wrapper" style="max-height: 100%">
+        <div class="form-container">
+            <div class="form-header">
+                <h1 class="form-title">Create New Task</h1>
+                <p class="form-subtitle">Add a new task to your todo list</p>
             </div>
 
-            <div class="form-group">
-                <label class="form-label" for="id_description">Description</label>
-                <textarea name="description"
-                          id="id_description"
-                          class="custom-textarea"
-                          placeholder="Add more details about this task..."
-                          rows="4"></textarea>
-                {% if form.description.errors %}
-                    <div class="error-message">{{ form.description.errors }}</div>
-                {% endif %}
+            <!-- Display general form errors -->
+            {% if error %}
+            <div class="error-message" style="background: #fed7d7; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+                {{ error }}
             </div>
+            {% endif %}
 
-            <div class="form-group">
-                <label class="form-label" for="id_deadline_datetime">Due Date</label>
-                <input type="datetime-local"
-                       name="deadline_datetime"
-                       id="id_deadline_datetime"
-                       class="custom-date">
-                {% if form.deadline_datetime.errors %}
-                    <div class="error-message">{{ form.deadline_datetime.errors }}</div>
-                {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}">Task Title *</label>
+                    {{ form.title }}
+                    {{ form.title.errors }}
+                </div>
+
+                 <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Description</label>
+                    {{ form.description }}
+                    {{ form.description.errors }}
+                  </div>
+
+                <div class="form-group">
+                    <label for="{{ form.deadline_datetime.id_for_label }}">Due Date</label>
+                    {{ form.deadline_datetime }}
+                    {{ form.deadline_datetime.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-wrapper">
+                        {{ form.important }}
+                        <span class="checkmark"></span>
+                        <span style="padding-left: 30px">Mark as important</span>
+                    </label>
+                    {{ form.important.errors }}
+                </div>
+
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" style="background-color: rgba(17,5,166,0.3)" onclick="window.history.back()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Task</button>
+                </div>
+
+
+            </form>
+
+            <div class="form-footer">
+                <p>Fill in the required fields marked with *</p>
             </div>
-
-            <div class="form-group">
-                <label class="checkbox-wrapper">
-                    <input type="checkbox"
-                       name="important"
-                       id="id_important"
-                       class="custom-checkbox"
-                       {% if form.important.value %}checked{% endif %}>
-                <span class="checkmark"></span>
-                <span class="checkbox-text" style="padding-left: 35px">Mark as important</span>
-                </label>
-
-                {% if form.important.errors %}
-                    <div class="error-message">{{ form.important.errors }}</div>
-                {% endif %}
-            </div>
-
-            <div class="form-actions">
-                <button type="button" class="btn btn-secondary" style="background-color: rgba(17,5,166,0.3)" onclick="window.history.back()">Cancel</button>
-                <button type="submit" class="btn btn-primary">Create Task</button>
-            </div>
-        </form>
-
-        <div class="form-footer">
-            <p>Fill in the required fields marked with *</p>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block extra_js %}
