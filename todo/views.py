@@ -121,6 +121,7 @@ def viewtodo(request, todo_pk):
         try:
             form = TodoForm(request.POST, instance=todo_task)
             form.save()
+
             return redirect('currenttodos')
         except ValueError:
             return render(request, 'todo/viewtodo.html', {'todo_task': todo_task, 'form': form, 'error': 'Bad Info'})
@@ -132,6 +133,7 @@ def completetodo(request, todo_pk):
     if request.method == 'POST':
         todo.done = True
         todo.save()
+
         return redirect('currenttodos')
 
 
@@ -140,4 +142,5 @@ def deletetodo(request, todo_pk):
     todo = get_object_or_404(ToDo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
         todo.delete()
+
         return redirect('currenttodos')
