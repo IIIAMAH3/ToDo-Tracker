@@ -325,6 +325,43 @@
     background: rgba(255, 255, 255, 0.25) !important;
 }
 
+.btn-complete {
+    background: linear-gradient(135deg, #8cda6a 0%, #469346 100%) !important;
+    color: white;
+}
+
+.btn-complete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(47, 223, 41, 0.4);
+}
+
+.dark-theme .btn-complete {
+    background: linear-gradient(135deg, #8cda6a 0%, #469346 100%) !important;
+    color: white;
+}
+
+.dark-theme .btn-complete:hover {
+    background: rgba(21, 255, 7, 0.4) !important;
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, #dc9393 0%, #8c1418 100%) !important;
+    color: white;
+}
+
+.btn-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 55, 55, 0.4);
+}
+
+.dark-theme .btn-delete {
+    background: linear-gradient(135deg, #dc9393 0%, #8c1418 100%) !important;
+}
+
+.dark-theme .btn-delete:hover {
+    background: rgba(204, 150, 150, 0.4) !important;
+}
+
 /* Form Footer */
 .form-footer {
     text-align: center;
