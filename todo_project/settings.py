@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'calorie_tracker.wsgi.application'
+WSGI_APPLICATION = 'todo_project.wsgi.application'
 
 
 # Database
@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'calorie_tracker.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        os.getenv("DATABASE_URL"),
+        default=os.getenv('DATABASE_URL'),
         conn_max_age=600,
         ssl_require=False
     )
