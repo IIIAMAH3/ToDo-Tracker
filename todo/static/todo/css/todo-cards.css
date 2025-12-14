@@ -1,5 +1,5 @@
 .todos-page-wrapper {
-    background: linear-gradient(135deg, #ff7bd8 0%, #3fa9ff 100%);
+    background: linear-gradient(120deg, #ff8fd1 0%, #5aa9ff 100%);
     min-height: 100vh;
 }
 
@@ -257,13 +257,14 @@
 }
 
 .empty-state-text {
-    font-size: 1rem;
+    font-size: 18px;
     margin-bottom: 30px;
-    color: #29292b;
+    color: #252525;
 }
 
 .dark-theme .empty-state,
-.dark-theme .empty-state-title {
+.dark-theme .empty-state-title,
+.dark-theme .empty-state-text {
     color: #a0aec0;
 }
 

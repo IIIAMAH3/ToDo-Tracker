@@ -46,7 +46,7 @@
                 {{ form.important.errors }}
             </div>
             <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary" formaction="{% url 'completedtodos' %}">Save</button>
                 <button type="submit" formaction="{% url 'completetodo' todo_task.id %}" class="btn btn-complete">Completed</button>
                 <button type="submit" formaction="{% url 'deletetodo' todo_task.id %}" class="btn btn-delete">Delete</button>
             </div>

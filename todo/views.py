@@ -7,7 +7,6 @@ from .models import ToDo
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-
 def home(request):
     return render(request, 'todo/home.html')
 
@@ -144,3 +143,22 @@ def deletetodo(request, todo_pk):
         todo.delete()
 
         return redirect('currenttodos')
+
+
+def custom_404_view(request, exception):
+    """
+    Custom 404 error handler that maintains site header and footer
+
+    Args:
+        request: HttpRequest object
+        exception: The exception that triggered the 404
+
+    Returns:
+        HttpResponse with 404 status and full site layout
+    """
+    context = {
+        "exception": str(exception),
+        "path": request.path,
+    }
+
+    return render(request, template_name="404.html", context=context, status=404)

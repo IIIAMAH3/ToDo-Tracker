@@ -1,5 +1,5 @@
 .form-page-wrapper {
-    background: linear-gradient(135deg, #ff7bd8 0%, #3fa9ff 100%);
+    background: linear-gradient(120deg, #ff8fd1 0%, #5aa9ff 100%);
     min-height: calc(100vh - 76px);
     display: flex;
     justify-content: center;
@@ -7,7 +7,7 @@
     padding: 40px 20px;
 }
 
-/* Dark mode support for wrapper */
+ /*Dark mode support for wrapper*/
 .dark-theme .form-page-wrapper {
     background: linear-gradient(135deg, #1a1f2e 0%, #2d1b33 100%);
 }
@@ -293,7 +293,7 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #ff7bd8 0%, #3fa9ff 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
 }
 

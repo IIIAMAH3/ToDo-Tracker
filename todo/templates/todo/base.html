@@ -4,273 +4,134 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
     <title>{% block title %}ToDo Tracker{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'todo/css/style.css' %}">
     {% block extra_css %}{% endblock %}
-    <style>
-        body {
-            background-color: #ffffff;
-            color: #000000;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* ====== Dark theme ====== */
-        body.dark-theme {
-            background: linear-gradient(135deg, #1a1f2e 0%, #2d1b33 100%);
-            color: #ffffff;
-        }
-
-        /* ====== Card styling ====== */
-        .card {
-            background-color: #f8f9fa;
-            color: #000000;
-            border-radius: 12px;
-            transition: background-color 0.3s, color 0.3s;
-            border: 1px solid #e9ecef; /* Light border for light mode */
-        }
-
-        .dark-theme .card {
-            background-color: #1e1e1e;
-            color: #ffffff;
-            border: 1px solid #374151; /* Subtle border for dark mode */
-            box-shadow: none !important; /* Remove shadow in dark mode */
-        }
-
-        /* ====== Text inside cards ====== */
-        .card h1,
-        .card h2,
-        .card h3,
-        .card h4,
-        .card h5,
-        .card h6,
-        .card p,
-        .card a {
-            transition: color 0.3s;
-        }
-
-        .dark-theme .card h1,
-        .dark-theme .card h2,
-        .dark-theme .card h3,
-        .dark-theme .card h4,
-        .dark-theme .card h5,
-        .dark-theme .card h6,
-        .dark-theme .card p {
-            color: #ffffff;
-        }
-
-        /* ====== Form inputs ====== */
-        .card input,
-        .card select,
-        .card textarea {
-            background-color: #ffffff;
-            color: #000000;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            transition: background-color 0.3s, color 0.3s, border 0.3s;
-        }
-
-        .dark-theme .card input,
-        .dark-theme .card select,
-        .dark-theme .card textarea {
-            background-color: #2c2c2c;
-            color: #ffffff;
-            border: 1px solid #555555;
-        }
-
-        .card input::placeholder,
-        .card textarea::placeholder {
-            color: #999999;
-        }
-
-        .dark-theme .card input::placeholder,
-        .dark-theme .card textarea::placeholder {
-            color: #bbbbbb;
-        }
-
-        .card label {
-            color: #333333; /* dark text for light mode */
-            font-weight: 600;
-        }
-
-        /* For dark mode */
-        .dark-theme .card label {
-            color: #ffffff; /* white text for dark mode */
-        }
-
-        /* ====== Buttons ====== */
-        .btn {
-            border-radius: 10px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-        }
-
-    .btn-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 10px 20px;
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-    }
-
-    .btn-secondary {
-        background: rgba(255, 255, 255, 0.2);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        color: white;
-        padding: 10px 20px;
-        backdrop-filter: blur(10px);
-    }
-
-    .btn-secondary:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: translateY(-2px);
-    }
-
-    /* Dark mode adjustments */
-    .dark-theme .btn-secondary {
-        background: rgba(0, 0, 0, 0.2);
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        color: #e2e8f0;
-    }
-
-    .dark-theme .btn-secondary:hover {
-        background: rgba(0, 0, 0, 0.3);
-    }
-
-    /* Navbar-specific button adjustments */
-    .navbar .btn {
-        margin: 0 5px;
-    }
-
-    .navbar .btn-primary {
-        background: linear-gradient(135deg, #ff7bd8 0%, #3fa9ff 100%);
-    }
-
-    .navbar .btn-primary:hover {
-        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-    }
-
-    .nav-item {
-        font-size: 18px;
-    }
-
-    .navbar .btn-secondary {
-        background: rgba(255, 255, 255, 0.2) !important;
-        border: 2px solid rgba(255, 255, 255, 0.3) !important;
-        color: white !important;
-        backdrop-filter: blur(10px);
-    }
-
-    .navbar .btn-secondary:hover {
-        background: rgba(255, 255, 255, 0.3) !important;
-        transform: translateY(-2px);
-    }
-
-    /* Dark mode specific styles for navbar button */
-    .dark-theme .navbar .btn-secondary {
-        background: rgba(255, 255, 255, 0.15) !important;
-        border: 2px solid rgba(255, 255, 255, 0.25) !important;
-        color: white !important;
-    }
-
-    .dark-theme .navbar .btn-secondary:hover {
-        background: rgba(255, 255, 255, 0.25) !important;
-    }
-        /* ====== Link under button ====== */
-        .register-link {
-            color: #0d6efd;
-            text-decoration: none;
-        }
-
-        .register-link:hover {
-            text-decoration: underline;
-        }
-
-        .dark-theme  .register-link {
-            color: #4da3ff;
-        }
-
-        /* ====== Form layout ====== */
-        form p {
-            margin-bottom: 1rem;
-        }
-    </style>
     <link rel="icon" type="image/png" href="{% static 'todo/logo.png' %}">
 </head>
 
 <body>
-    <nav id="topNav" class="navbar navbar-expand-md navbar-light" style="background: linear-gradient(135deg, #ff7bd8 0%, #3fa9ff 100%);">
-        <div class="container-fluid">
-            <!-- Лого слева -->
-            <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
-                <img src="{% static "todo/logo.png" %}" width="35" height="35"
-                     class="d-inline-block align-top" alt="Logo">
-                <span class="ml-2" style="font-size: 23px">ToDo Tracker</span>
-            </a>
+    <div class="page-background">
+        <nav id="topNav" class="navbar navbar-expand-md navbar-light page-background">
+            <div class="container-fluid">
+                <!-- Лого слева -->
+                <a class="navbar-brand d-flex align-items-center background-text" href="{% url 'home' %}">
+                    <img src="{% static "todo/logo.png" %}" width="35" height="35"
+                         class="d-inline-block align-top" alt="Logo">
+                    <span class="ml-2" style="font-size: 23px;">ToDo Tracker</span>
+                </a>
 
-            <!-- Бургер-кнопка для мобилок -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <!-- Бургер-кнопка для мобилок -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            {% if user.is_authenticated %}
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <!-- Central part of the link -->
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text" href="{% url 'createtodo' %}"><b>Create</b></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'currenttodos' %}"><b>Current</b></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'completedtodos' %}"><b>Completed</b></a>
-                        </li>
-                    </ul>
-                    <!-- Right part of the link + dark mode switcher -->
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item d-flex align-items-center mr-3">
-                            <span style="font-size: 18px;"><a href="{% url 'currenttodos' %}" class="register-link" style="color: #1e1f22">{{ user.username }}</a></span>
-                        </li>
-                        <li class="nav-item">
-                            <form action="{% url 'logoutuser' %}" method="POST" class="d-inline">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary">
-                                    <b>Logout</b>
-                                </button>
-                            </form>
-                        </li>
-                        <li class="nav-item ml-2">
-                            <button id="toggleTheme" class="btn btn-secondary">🌙 Dark Mode</button>
-                        </li>
-                    </ul>
-                </div>
+                {% if user.is_authenticated %}
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <!-- Central part of the link -->
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text background-text" href="{% url 'createtodo' %}"><b>Create</b></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link background-text" href="{% url 'currenttodos' %}"><b>Current</b></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link background-text" href="{% url 'completedtodos' %}"><b>Completed</b></a>
+                            </li>
+                        </ul>
+                        <!-- Right part of the link + dark mode switcher -->
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item d-flex align-items-center mr-3">
+                                <span style="font-size: 18px;"><a href="{% url 'currenttodos' %}" class="register-link background-text" style="color: #1e1f22">{{ user.username }}</a></span>
+                            </li>
+                            <li class="nav-item">
+                                <form action="{% url 'logoutuser' %}" method="POST" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary">
+                                        <b>Logout</b>
+                                    </button>
+                                </form>
+                            </li>
+                            <li class="nav-item ml-2">
+                                <button id="toggleTheme" class="btn btn-secondary">🌙 Dark Mode</button>
+                            </li>
+                        </ul>
+                    </div>
 
-            {% else %}
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="{% url 'signupuser' %}"><b>Sign up</b></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="{% url 'loginuser' %}"><b>Login</b></a>
-                        </li>
-                        <li class="nav-item ml-2">
-                            <button id="toggleTheme" class="btn btn-secondary">🌙 Dark Mode</button>
-                        </li>
-                    </ul>
-                </div>
-            {% endif %}
-        </div>
-    </nav>
+                {% else %}
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="{% url 'signupuser' %}"><b>Sign up</b></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="{% url 'loginuser' %}"><b>Login</b></a>
+                            </li>
+                            <li class="nav-item ml-2">
+                                <button id="toggleTheme" class="btn btn-secondary">🌙 Dark Mode</button>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
 
-    {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
 
+        <footer class="site-footer" role="contentinfo" aria-label="Site footer">
+          <div class="footer-top">
+            <div class="container footer-columns">
+              <nav class="footer-col" aria-label="Shop">
+                <h3>Shop</h3>
+                <ul>
+                  <li><a href="">All products</a></li>
+                  <li><a href="">New</a></li>
+                  <li><a href="">Sale</a></li>
+                </ul>
+              </nav>
+
+              <nav class="footer-col" aria-label="Company">
+                <h3>Company</h3>
+                <ul>
+                  <li><a href="">About us</a></li>
+                  <li><a href="">Careers</a></li>
+                  <li><a href="">Press</a></li>
+                </ul>
+              </nav>
+
+              <nav class="footer-col" aria-label="Support">
+                <h3>Support</h3>
+                <ul>
+                  <li><a href="">Help center</a></li>
+                  <li><a href="">Delivery & returns</a></li>
+                  <li><a href="">Contact</a></li>
+                </ul>
+              </nav>
+
+              <nav class="footer-col" aria-label="Contact">
+                <h3>Contact</h3>
+                <ul>
+                  <li><a href="https://instagram.com/yar.oleskevychhh">Instagram</a></li>
+                  <li><a href="https://x.com/">Twitter</a></li>
+                  <li><a href="https://www.linkedin.com/in/yaroslav-oleskevych-71894328a">LinkedIn</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <div class="footer-bottom">
+            <div class="container footer-legal">
+              <div class="legal-left">
+                <small>&copy;. All rights reserved.</small>
+                <a href="">Privacy</a>
+                <a href="">Terms</a>
+              </div>
+          </div>
+        </footer>
+    </div>
     <script>
         const toggleButton = document.getElementById('toggleTheme');
         const currentTheme = localStorage.getItem('theme') || 'light';

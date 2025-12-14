@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import handler404, handler500
 from django.contrib import admin
 from django.urls import path
 from todo import views
@@ -33,3 +34,9 @@ urlpatterns = [
     path('todo/<int:todo_pk>/complete', views.completetodo, name='completetodo'),
     path('todo/<int:todo_pk>/delete', views.deletetodo, name='deletetodo')
 ]
+
+handler404 = 'todo.views.custom_404_view'
+
+# handler403 - Forbidden
+# handler400 - Bad request.
+# handler500 - Server Error
