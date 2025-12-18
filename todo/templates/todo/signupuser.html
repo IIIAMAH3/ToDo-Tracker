@@ -21,8 +21,13 @@
 
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
-
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                </div>
+            {% endfor %}
             <div class="d-flex align-items-center justify-content-between mt-3">
                 <button type="submit" class="btn btn-primary rounded-pill px-4">Sign up</button>
                 <p class="mb-0 ml-1">

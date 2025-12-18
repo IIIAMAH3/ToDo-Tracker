@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
@@ -15,18 +16,26 @@ def signupuser(request):
     if request.method == "GET":
         return render(request, 'todo/signupuser.html', {"form": CustomUserCreationForm()})
     else:
-        if request.POST["password1"] == request.POST["password2"]:
-            try:
-                user = User.objects.create_user(request.POST["username"], password=request.POST["password1"])
-                user.save()
-                login(request, user)
-                return redirect("currenttodos")
-            except IntegrityError:
-                return render(request, 'todo/signupuser.html',
-                              {"form": CustomUserCreationForm(), "error": "That username has already been taken. Create a new one"})
-        else:
-            return render(request, 'todo/signupuser.html', {"form": CustomUserCreationForm(), "error": "Passwords didn't match"})
+        form = CustomUserCreationForm(request.POST)
 
+        if form.is_valid():
+
+            user = form.save()
+            login(request, user)
+
+            return redirect("currenttodos")
+
+        else:
+            first_error = None
+            for errors in form.errors.values():
+                if errors:
+                    first_error = errors[0]
+                    break
+
+            return render(request, "todo/signupuser.html", {
+                "form": form,
+                "error": first_error,
+            })
 
 def loginuser(request):
     if request.method == "GET":
