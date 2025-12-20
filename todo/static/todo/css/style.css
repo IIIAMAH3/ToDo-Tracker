@@ -198,6 +198,11 @@ color: white !important;
 .dark-theme .navbar .btn-secondary:hover {
 background: rgba(255, 255, 255, 0.25) !important;
 }
+
+.dark-theme .navbar .nav-link.login-signup {
+    color: #8ba1f8 !important;
+}
+
 /* ====== Link under button ====== */
 .register-link {
     color: #0d6efd;
