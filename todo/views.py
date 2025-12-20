@@ -1,5 +1,3 @@
-from django.core.exceptions import ValidationError
-from django.db import IntegrityError
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
@@ -122,17 +120,38 @@ def completedtodos(request):
 def viewtodo(request, todo_pk):
     todo_task = get_object_or_404(ToDo, pk=todo_pk, user=request.user)
 
+    next_page = request.GET.get("next", "currenttodos")
+
     if request.method == 'GET':
         form = TodoForm(instance=todo_task)
-        return render(request, 'todo/viewtodo.html', {'todo_task': todo_task, 'form': form})
+        return render(request, 'todo/viewtodo.html', {
+            'todo_task': todo_task,
+            'form': form,
+            'next_page': next_page,
+        })
     else:
-        try:
-            form = TodoForm(request.POST, instance=todo_task)
+        form = TodoForm(request.POST, instance=todo_task)
+
+        next_page = request.POST.get("next", "currenttodos")
+
+        if form.is_valid():
             form.save()
 
-            return redirect('currenttodos')
-        except ValueError:
-            return render(request, 'todo/viewtodo.html', {'todo_task': todo_task, 'form': form, 'error': 'Bad Info'})
+            return redirect(next_page)
+
+        else:
+            first_error = None
+            for errors in form.errors.values():
+                if errors:
+                    first_error = errors[0]
+                    break
+
+            return render(request, 'todo/viewtodo.html', {
+                'todo_task': todo_task,
+                'form': form,
+                'error': first_error,
+                'next_page': next_page
+            })
 
 
 @login_required

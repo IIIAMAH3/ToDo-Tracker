@@ -20,10 +20,10 @@
                     {% for todo in todos %}
                         <div class="todo-card {% if todo.important %}important{% endif %}" style="--i:{{ forloop.counter0 }};">
                             <div class="todo-header">
-                                <h3 class="todo-title"><a href="{% url 'viewtodo' todo.id %}" class="gradient-link">{{ todo.title }}</a></h3>
+                                <h3 class="todo-title"><a href="{% url 'viewtodo' todo.id %}?next=currenttodos" class="gradient-link">{{ todo.title|truncatechars:43 }}</a></h3>
                             </div>
                             {% if todo.description %}
-                                <p class="todo-description">{{ todo.description }}</p>
+                                <p class="todo-description">{{ todo.description|truncatechars:66 }}</p>
                             {% endif %}
 
                             <div class="todo-meta">
