@@ -173,6 +173,14 @@ def deletetodo(request, todo_pk):
         return redirect('currenttodos')
 
 
+@login_required
+def uncompletetodo(request, todo_pk):
+    todo = get_object_or_404(ToDo, pk=todo_pk, user=request.user)
+    todo.done = False
+    todo.save()
+    return redirect('currenttodos')
+
+
 def custom_404_view(request, exception):
     """
     Custom 404 error handler that maintains site header and footer

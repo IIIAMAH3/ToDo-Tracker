@@ -32,7 +32,8 @@ urlpatterns = [
     path('completed/', views.completedtodos, name='completedtodos'),
     path('todo/<int:todo_pk>', views.viewtodo, name='viewtodo'),
     path('todo/<int:todo_pk>/complete', views.completetodo, name='completetodo'),
-    path('todo/<int:todo_pk>/delete', views.deletetodo, name='deletetodo')
+    path('todo/<int:todo_pk>/delete', views.deletetodo, name='deletetodo'),
+    path('todo/<int:todo_pk>/uncomplete', views.uncompletetodo, name='uncompletetodo')
 ]
 
 handler404 = 'todo.views.custom_404_view'

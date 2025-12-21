@@ -50,12 +50,13 @@
                             <li class="nav-item">
                                 <form action="{% url 'logoutuser' %}" method="POST" class="d-inline">
                                     {% csrf_token %}
+
                                     <button type="submit" class="btn btn-primary">
                                         <b>Logout</b>
                                     </button>
                                 </form>
                             </li>
-                            <li class="nav-item ml-2">
+                            <li class="nav-item">
                                 <button id="toggleTheme" class="btn btn-secondary">🌙 Dark Mode</button>
                             </li>
                         </ul>
@@ -70,7 +71,7 @@
                             <li class="nav-item">
                                 <a class="nav-link login-signup" href="{% url 'loginuser' %}"><b>Login</b></a>
                             </li>
-                            <li class="nav-item ml-2">
+                            <li class="nav-item">
                                 <button id="toggleTheme" class="btn btn-secondary">🌙 Dark Mode</button>
                             </li>
                         </ul>
